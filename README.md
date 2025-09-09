@@ -1,2 +1,2 @@
-Code implementation for RELP.
+Code implementation for LSA.
 Comnming soon.
