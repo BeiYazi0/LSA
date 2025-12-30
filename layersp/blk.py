@@ -391,10 +391,10 @@ class BLK:
     @torch.no_grad()
     def get_layer_sp(self, args):
         self.alpha[0] = args.Lamda
-        if args.layer == 'blk':
+        if args.layer == 'lsa':
             return blk_score(args, self.model, self.tokenizer, self.alpha[int(args.final_s * 10)],
                              device=self.model.device)
-        elif args.layer == "blkb" or args.layer == "blkc":
+        elif args.layer == "lsab" or args.layer == "lsac":
             return blk_score_global(args, self.model, self.tokenizer,
                                     device=self.model.device)
         else:
