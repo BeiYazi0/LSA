@@ -141,7 +141,7 @@ def make_parser():
 
     ## eval zero
     parser.add_argument('--model_type', type=str, default="hf-causal-experimental", help='model type')
-    parser.add_argument("--model_args", default="pretrained=facebook/opt-1.3b")
+    parser.add_argument("--model_args", default="pretrained=facebook/opt-125m")
     parser.add_argument("--tasks", default=None, choices=MultiChoice(tasks.ALL_TASKS))
     parser.add_argument("--provide_description", action="store_true")
     parser.add_argument("--num_fewshot", type=int, default=0)
