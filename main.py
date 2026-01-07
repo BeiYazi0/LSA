@@ -44,6 +44,7 @@ class MultiChoice:
             yield choice
 
 
+@torch.no_grad()
 def eval_zero(args, model, tokenizer, task_names):
     description_dict = {}
     if args.description_dict_path:
