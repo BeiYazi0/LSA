@@ -41,16 +41,17 @@ class LLMPruner:
                         if "lm_head" not in name and isinstance(module, torch.nn.Linear):
                             register_forward_hook(module)
                 start_time = time.time()
-                self.model.zero_grad()
-                loss = self.model(example_prompts, labels=example_prompts).loss
-                print("Loss = {}".format(loss))
-                if args.imp == "none":
+                for j in range(args.num_examples):
+                    batch_input = example_prompts[j].unsqueeze(0).to(device)
+                    loss = self.model(batch_input, labels=batch_input).loss
                     loss.backward()
 
-            p_ratio = args.all_layer_ratio[i]
-            cur_d = 1 - p_ratio * (i + 1) / args.iters
+            # p_ratio = args.all_layer_ratio[i]
+            # cur_d = 1 - p_ratio * (i + 1) / args.iters
             with torch.no_grad():
-                for group in self.groups:  # local
+                for idx, group in enumerate(self.groups):  # local
+                    p_ratio = args.all_layer_ratio[idx // 2]
+                    cur_d = 1 - p_ratio * (i + 1) / args.iters
                     imp = group.cal_importance()
                     keep_idx = torch.sort(torch.topk(imp, dim=0, k=int(group.o_channels * cur_d))[1])[0]
                     group.prune(keep_idx)
