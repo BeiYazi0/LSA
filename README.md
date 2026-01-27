@@ -80,11 +80,11 @@ We provide a quick overview of the arguments:
 
 ### unstructured sparsity
 
-Below is an example command for pruning LLaMA-7B with LSA, to achieve unstructured 70% sparsity.
+Below is an example command for pruning LLaMA3-8B with LSA, to achieve unstructured 70% sparsity.
 
 ```
 python main.py \
---base_model huggyllama/llama-7b \
+--base_model meta-llama/Meta-Llama-3-8B \
 -s 0.7 -p sgpt --layer lsa \
 --num_examples 128 --block 128 \
 --tasks wikitext,ptb,c4,storycloze,rte,openbookqa,arc_easy,winogrande,arc_challenge,piqa,boolq,hellaswag \
